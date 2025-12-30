@@ -40,6 +40,16 @@
                        required>
             </div>
 
+            <div class="mb-4">
+                <label class="block mb-2 font-semibold">
+                    Pesan / Doa / Dukungan (Opsional)
+                </label>
+                <textarea name="pesan"
+                          class="w-full border rounded p-2"
+                          rows="3"
+                          placeholder="Tuliskan doa atau dukungan Anda untuk kampanye ini..."></textarea>
+            </div>
+
             <div class="mb-6">
                 <label class="block mb-2 font-semibold">
                     Upload Bukti Pembayaran

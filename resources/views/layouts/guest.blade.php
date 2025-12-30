@@ -30,15 +30,16 @@
     <!-- CONTENT -->
     <div class="relative z-10 min-h-screen flex flex-col sm:justify-center items-center px-4">
 
-        <!-- LOGO -->
-        <div class="mb-6">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 text-white" />
-            </a>
-        </div>
-
         <!-- CARD -->
-        <div class="w-full sm:max-w-md bg-white shadow-xl rounded-5xl overflow-hidden px-6 py-8">
+        <div class="w-full sm:max-w-md bg-white/80 backdrop-blur-md shadow-2xl rounded-3xl overflow-hidden px-8 py-10 border border-white/50">
+            
+            <!-- LOGO INSIDE CARD -->
+            <div class="flex justify-center mb-8">
+                <a href="/">
+                    <x-application-logo class="w-24 h-24 drop-shadow-md" />
+                </a>
+            </div>
+
             {{ $slot }}
         </div>
 

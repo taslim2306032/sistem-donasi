@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 // ================= PUBLIC =================
 Route::get('/', function () {
-    return redirect()->route('donasi.index');
+    return view('welcome');
 });
 
 Route::get('/donasi', [DonasiController::class, 'index'])->name('donasi.index');

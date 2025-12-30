@@ -43,6 +43,9 @@
                         </td>
                         <td class="py-3 px-6 text-left">
                             {{ Str::limit($item->donasi->judul_donasi ?? '-', 30) }}
+                            @if($item->pesan)
+                                <div class="mt-1 text-xs text-gray-500 italic">"{{ Str::limit($item->pesan, 50) }}"</div>
+                            @endif
                         </td>
                         <td class="py-3 px-6 text-center font-bold text-emerald-600">
                             Rp {{ number_format($item->nominal, 0, ',', '.') }}

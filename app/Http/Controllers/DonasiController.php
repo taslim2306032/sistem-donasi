@@ -100,6 +100,7 @@ class DonasiController extends Controller
         $request->validate([
             'nominal' => 'required|numeric|min:1000',
             'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg,pdf|max:2048',
+            'pesan' => 'nullable|string|max:500', // Validasi pesan optional
         ]);
 
         $donasi = Donasi::findOrFail($id);
@@ -117,7 +118,8 @@ class DonasiController extends Controller
             'donasi_id' => $donasi->id,
             'nominal' => $request->nominal,
             'bukti_pembayaran' => $path,
-            'status' => 'pending' 
+            'status' => 'pending',
+            'pesan' => $request->pesan, // Simpan pesan
         ]);
 
         return redirect()->route('donasi.show', $id)->with('success', 'Donasi di kirimkan dan akan segera di verifikasi');

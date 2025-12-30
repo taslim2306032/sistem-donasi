@@ -15,7 +15,7 @@ class DonationHistory extends Model
         'nominal',
         'bukti_pembayaran',
         'status',
-        
+        'pesan',
     ];
 
     // RELASI KE USER
