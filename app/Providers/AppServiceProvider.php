@@ -11,7 +11,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        if (isset($_ENV['VERCEL']) || isset($_SERVER['VERCEL'])) {
+            $path = '/tmp/storage';
+            if (!is_dir($path)) {
+                mkdir($path, 0777, true);
+            }
+            $this->app->useStoragePath($path);
+            
+            // Ensure view cache path also exists
+            if (!is_dir($path . '/framework/views')) {
+                mkdir($path . '/framework/views', 0777, true);
+            }
+        }
     }
 
     /**
