@@ -30,6 +30,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Force HTTPS on Vercel to fix mixed content/broken styles
+        if (isset($_ENV['VERCEL']) || isset($_SERVER['VERCEL'])) {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
+
         // Vercel auto-migration for SQLite demo
         if (!app()->environment('local') && env('DB_CONNECTION') === 'sqlite') {
             $database = config('database.connections.sqlite.database');
