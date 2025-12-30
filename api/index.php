@@ -1,5 +1,17 @@
 <?php
 
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Force Laravel to look for caches in /tmp (writable and empty)
+// This bypasses any corrupt 'services.php' or 'packages.php' committed to the repo
+putenv('APP_SERVICES_CACHE=/tmp/services.php');
+putenv('APP_PACKAGES_CACHE=/tmp/packages.php');
+putenv('APP_CONFIG_CACHE=/tmp/config.php');
+putenv('APP_ROUTES_CACHE=/tmp/routes.php');
+putenv('APP_EVENTS_CACHE=/tmp/events.php');
 
 try {
     require __DIR__ . '/../public/index.php';
