@@ -14,6 +14,8 @@ putenv('APP_EVENTS_CACHE=/tmp/events.php');
 
 // TEMPORARY FIX: Force APP_KEY explicitly to bypass Vercel env var issues
 putenv('APP_KEY=base64:E4EQEDXZWLD4kZZN90pcEKH7kjabU1lPon0JqFihWlw=');
+// Force ASSET_URL to HTTPS to fix broken styles/images
+putenv('ASSET_URL=https://sistem-donasi.vercel.app');
 
 try {
     require __DIR__ . '/../public/index.php';
