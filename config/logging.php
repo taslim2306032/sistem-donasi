@@ -18,7 +18,7 @@ return [
     |
     */
 
-    'default' => env('LOG_CHANNEL', 'stack'),
+    'default' => (isset($_ENV['VERCEL']) || isset($_SERVER['VERCEL'])) ? 'stderr' : env('LOG_CHANNEL', 'stack'),
 
     /*
     |--------------------------------------------------------------------------
