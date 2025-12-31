@@ -40,12 +40,6 @@
                 </div>
             </div>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
-
             @if(auth()->user()->role === 'admin' || auth()->user()->usertype === 'admin')
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg" x-data="{ open: false }">
                  <div class="flex justify-between items-center">
@@ -63,6 +57,12 @@
                 </div>
             </div>
             @endif
+
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="max-w-xl">
+                    @include('profile.partials.delete-user-form')
+                </div>
+            </div>
         </div>
     </div>
 @endsection
