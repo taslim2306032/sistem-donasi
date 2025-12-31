@@ -16,8 +16,11 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $bankAccounts = \App\Models\BankAccount::all();
+        
         return view('profile.edit', [
             'user' => $request->user(),
+            'bankAccounts' => $bankAccounts,
         ]);
     }
 

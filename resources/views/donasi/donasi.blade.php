@@ -19,9 +19,15 @@
             <h3 class="font-bold text-blue-800 text-lg mb-2">Instruksi Pembayaran</h3>
             <p class="text-sm text-blue-700 mb-2">Silakan transfer donasi ke rekening berikut:</p>
             <ul class="list-disc list-inside text-sm text-blue-700 font-semibold mb-3">
-                <li>BCA: 1483077223 (Taslim Nuralim)</li>
-                <li>SeaBank: 901021781660 (Taslim Nuralim)</li>
-                <li>BCA: 148373863998 (Muhamad Anwar Sanusi)</li>
+                @php
+                    $bankAccounts = \App\Models\BankAccount::where('is_active', true)->get();
+                @endphp
+
+                @forelse($bankAccounts as $bank)
+                    <li>{{ $bank->bank_name }}: {{ $bank->account_number }} ({{ $bank->account_holder }})</li>
+                @empty
+                    <li>Belum ada rekening tersedia.</li>
+                @endforelse
             </ul>
             <p class="text-xs text-blue-600">Setelah transfer, mohon upload bukti pembayaran di bawah ini agar donasi Anda dapat diverifikasi.</p>
         </div>

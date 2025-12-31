@@ -45,6 +45,24 @@
                     @include('profile.partials.delete-user-form')
                 </div>
             </div>
+
+            @if(auth()->user()->usertype === 'admin')
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg" x-data="{ open: false }">
+                 <div class="flex justify-between items-center">
+                    <h2 class="text-lg font-medium text-gray-900">
+                        {{ __('Manajemen Rekening') }}
+                    </h2>
+                    <button @click="open = !open" class="text-indigo-600 hover:text-indigo-900 font-medium">
+                        <span x-show="!open">{{ __('Kelola') }}</span>
+                        <span x-show="open">{{ __('Tutup') }}</span>
+                    </button>
+                </div>
+
+                <div x-show="open" class="mt-4 max-w-xl transition-all duration-300">
+                    @include('profile.partials.manage-bank-accounts')
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 @endsection

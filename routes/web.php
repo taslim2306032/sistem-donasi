@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BankAccountController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -46,6 +47,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // VERIFIKASI PEMBAYARAN
     Route::get('/admin/payments/pending', [DonasiController::class, 'pending'])->name('admin.payments.pending');
     Route::post('/admin/payments/{id}/verify', [DonasiController::class, 'verify'])->name('admin.payments.verify');
+
+    // MANAGE BANK ACCOUNTS
+    Route::post('/admin/bank-accounts', [BankAccountController::class, 'store'])->name('bank-accounts.store');
+    Route::delete('/admin/bank-accounts/{bankAccount}', [BankAccountController::class, 'destroy'])->name('bank-accounts.destroy');
 });
 
 require __DIR__.'/auth.php';
