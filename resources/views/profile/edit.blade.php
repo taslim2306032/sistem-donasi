@@ -46,7 +46,7 @@
                 </div>
             </div>
 
-            @if(auth()->user()->usertype === 'admin')
+            @if(auth()->user()->role === 'admin' || auth()->user()->usertype === 'admin')
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg" x-data="{ open: false }">
                  <div class="flex justify-between items-center">
                     <h2 class="text-lg font-medium text-gray-900">
