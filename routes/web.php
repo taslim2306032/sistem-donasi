@@ -17,6 +17,24 @@ Route::get('/repair-db', function () {
     return '<h1>Database Refreshed!</h1><p>Tabel baru dan data rekening sudah masuk. Silakan cek halaman Donasi.</p>';
 });
 
+// Vercel Storage Proxy
+Route::get('/storage/{path}', function ($path) {
+    if (!isset($_ENV['VERCEL']) && !isset($_SERVER['VERCEL'])) {
+        abort(404);
+    }
+
+    $filePath = storage_path('app/public/' . $path);
+
+    if (!file_exists($filePath)) {
+        abort(404);
+    }
+
+    $file = file_get_contents($filePath);
+    $type = mime_content_type($filePath);
+
+    return response($file, 200)->header("Content-Type", $type);
+})->where('path', '.*');
+
 Route::get('/donasi', [DonasiController::class, 'index'])->name('donasi.index');
 Route::get('/donasi/{id}', [DonasiController::class, 'show'])->name('donasi.show')->where('id', '[0-9]+');
 
