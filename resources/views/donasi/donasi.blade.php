@@ -19,8 +19,9 @@
             <h3 class="font-bold text-blue-800 text-lg mb-2">Instruksi Pembayaran</h3>
             <p class="text-sm text-blue-700 mb-2">Silakan transfer donasi ke rekening berikut:</p>
             <ul class="list-disc list-inside text-sm text-blue-700 font-semibold mb-3">
-                <li>BSI: 123-456-7890 (Yayasan DonasiKu)</li>
-                <li>BCA: 098-765-4321 (Yayasan DonasiKu)</li>
+                <li>BCA: 1483077223 (Taslim Nuralim)</li>
+                <li>SeaBank: 901021781660 (Taslim Nuralim)</li>
+                <li>BCA: 148373863998 (Muhamad Anwar Sanusi)</li>
             </ul>
             <p class="text-xs text-blue-600">Setelah transfer, mohon upload bukti pembayaran di bawah ini agar donasi Anda dapat diverifikasi.</p>
         </div>
