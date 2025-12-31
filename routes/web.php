@@ -11,6 +11,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Force DB Refresh for Vercel
+Route::get('/repair-db', function () {
+    \Illuminate\Support\Facades\Artisan::call('migrate:fresh --force --seed');
+    return '<h1>Database Refreshed!</h1><p>Tabel baru dan data rekening sudah masuk. Silakan cek halaman Donasi.</p>';
+});
+
 Route::get('/donasi', [DonasiController::class, 'index'])->name('donasi.index');
 Route::get('/donasi/{id}', [DonasiController::class, 'show'])->name('donasi.show')->where('id', '[0-9]+');
 
