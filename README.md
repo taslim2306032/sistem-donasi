@@ -1,73 +1,125 @@
-# Sistem Donasi
+# Sistem Donasi Digital (DonasiKu)
 
-Aplikasi manajemen donasi berbasis web yang dibangun menggunakan **Laravel** dan **Vite**.
+**Nama Proyek:** Sistem Donasi Berbasis Web  
+**Framework:** Laravel 11  
+**Frontend:** Blade Templates + Tailwind CSS  
 
-## Persyaratan Sistem
+Dokumentasi ini disusun untuk kebutuhan presentasi teknis, mencakup penjelasan arsitektur sistem, alur kerja, teknologi yang digunakan, serta panduan instalasi.
 
-Pastikan komputer Anda sudah terinstall:
-- **PHP** (versi 8.2 atau lebih baru)
-- **Composer**
-- **Node.js** & **NPM**
+---
 
-## Cara Install (Setup Awal)
+## 1. Deskripsi Sistem
+Aplikasi ini adalah platform *crowdfunding* sederhana yang memungkinkan:
+1.  **User (Donatur)** untuk melihat kampanye donasi, melakukan donasi, mengunggah bukti transfer, dan melihat riwayat donasi mereka.
+2.  **Admin** untuk mengelola kampanye donasi, memverifikasi bukti pembayaran user, mengelola akun user, dan melihat statistik donasi.
 
-Ikuti langkah-langkah ini untuk menjalankan proyek di komputer Anda:
+Tujuan utama sistem ini adalah transparansi dan kemudahan dalam penggalangan dana digital.
 
-1.  **Clone Repository**
+---
+
+## 2. Teknologi yang Digunakan (Tech Stack)
+
+Sistem ini dibangun di atas pondasi teknologi modern:
+
+-   **Backend**: [Laravel 11](https://laravel.com)
+    -   Framework PHP yang kuat, aman, dan skalabel.
+    -   Menggunakan fitur *MVC (Model-View-Controller)* untuk memisahkan logika bisnis, antarmuka, dan data.
+    -   *Eloquent ORM* untuk interaksi database yang efisien.
+-   **Frontend**: [Blade Templates](https://laravel.com/docs/blade) & [Tailwind CSS](https://tailwindcss.com)
+    -   Desain antarmuka (UI/UX) yang responsif dan modern.
+    -   Blade memungkinkan rendering data dinamis dari backend.
+-   **Database**: MySQL
+    -   Penyimpanan data relasional untuk User, Donasi, dan Riwayat Transaksi.
+-   **Authentication**: Laravel Breeze
+    -   Sistem login, register, dan manajemen sesi yang aman.
+
+---
+
+## 3. Fitur Utama
+
+### A. Administrator (Admin)
+Admin memiliki hak akses penuh terhadap sistem:
+1.  **Dashboard Statistik**: Melihat total donasi terkumpul, jumlah user, dan grafik transaksi terbaru.
+2.  **Manajemen Kampanye (CRUD)**:
+    -   Membuat kampanye donasi baru (Judul, Deskripsi, Target, Gambar).
+    -   Mengedit atau menghapus kampanye yang sudah ada.
+3.  **Verifikasi Pembayaran (PENTING)**:
+    -   Administrator bertugas memeriksa bukti transfer yang diunggah user.
+    -   Aksi: **Approve** (Dana masuk, status *Verified*) atau **Reject** (Status *Rejected*).
+4.  **Manajemen User**: Melihat daftar user terdaftar.
+5.  **Manajemen Rekening**: Menambah/menghapus rekening bank tujuan transfer.
+
+### B. User (Donatur)
+User adalah pengguna umum yang ingin berdonasi:
+1.  **Registrasi & Login**: Membuat akun personal.
+2.  **Jelajah Donasi**: Melihat daftar donasi aktif.
+3.  **Melakukan Donasi**:
+    -   Memilih kampanye -> Input Nominal -> Upload Bukti Transfer.
+    -   Status awal donasi adalah **"Pending"** (Menunggu verifikasi admin).
+4.  **Riwayat Donasi**: Memantau status donasi mereka (apakah sudah diterima/ditolak).
+
+---
+
+## 4. Alur Kerja Sistem (System Flow)
+
+Berikut adalah alur data dari user melakukan donasi hingga validasi:
+
+1.  **User Berdonasi**: User memilih kampanye, mengisi form, dan upload bukti bayar.
+    -   *Database*: Entry baru di tabel `donation_histories` dengan status `pending`.
+2.  **Proses Verifikasi**: Admin menerima notifikasi/melihat di menu "Pending Payments".
+3.  **Keputusan Admin**:
+    -   **Jika Diterima**: Admin klik "Approve". Status berubah jadi `verified`. Total uang di kampanye donasi (`donasi_terkumpul`) bertambah otomatis.
+    -   **Jika Ditolak**: Admin klik "Reject". Status berubah jadi `rejected`. Uang tidak bertambah.
+4.  **Selesai**: User melihat status terbaru di dashboard mereka.
+
+---
+
+## 5. Struktur Kode & Folder Penting
+
+Untuk memudahkan navigasi saat presentasi, berikut lokasi file-file utama:
+
+-   **Controllers** (`app/Http/Controllers/`):
+    -   `DonasiController.php`: Logika inti donasi (CRUD, Upload, Verifikasi).
+    -   `DashboardController.php`: Logika tampilan dashboard admin/user.
+-   **Models** (`app/Models/`):
+    -   `Donasi.php`: Representasi data kampanye.
+    -   `DonationHistory.php`: Representasi data transaksi user.
+-   **Views** (`resources/views/`):
+    -   `donasi/`: Folder tampilan terkait donasi (index, create, show).
+    -   `admin/`: Folder tampilan khusus admin (pending payments, users).
+-   **Routes** (`routes/web.php`): Definisi jalur URL aplikasi.
+
+---
+
+## 6. Cara Instalasi & Menjalankan
+
+Ikuti langkah ini jika ingin menjalankan di komputer lain:
+
+1.  **Clone & Install**:
     ```bash
     git clone https://github.com/taslim2306032/sistem-donasi.git
     cd sistem-donasi
-    ```
-
-2.  **Install Dependencies**
-    Install library PHP dan JavaScript yang dibutuhkan:
-    ```bash
     composer install
     npm install
     ```
+2.  **Setup Database**:
+    -   Buat database baru di MySQL.
+    -   Copy `.env.example` ke `.env` dan atur koneksi DB.
+    -   Jalankan: `php artisan migrate:fresh --seed`
+3.  **Jalankan Server**:
+    -   Backend: `php artisan serve`
+    -   Frontend: `npm run dev`
 
-3.  **Setup Environment (.env)**
-    Duplikat file contoh konfigurasi:
-    ```bash
-    cp .env.example .env
-    ```
+---
 
-4.  **Generate Application Key**
-    ```bash
-    php artisan key:generate
-    ```
+## 7. Akun Demo
 
-5.  **Setup Database**
-    Jalankan migrasi database dan isi dengan data awal (seeding):
-    ```bash
-    php artisan migrate:fresh --seed
-    ```
+Gunakan akun ini untuk pengujian/presentasi:
 
-## Cara Menjalankan Aplikasi
+| Role | Email | Password |
+| :--- | :--- | :--- |
+| **Administrator** | `admin@gmail.com` | `password` |
+| **User (Donatur)** | `user@gmail.com` | `password` |
 
-Untuk membuka aplikasi, Anda perlu menjalankan dua server sekaligus di terminal yang berbeda.
-
-1.  **Terminal 1 (Backend Laravel)**
-    ```bash
-    php artisan serve
-    ```
-
-2.  **Terminal 2 (Frontend Vite)**
-    ```bash
-    npm run dev
-    ```
-
-3.  **Buka Browser**
-    Akses aplikasi di: [http://127.0.0.1:8000](http://127.0.0.1:8000)
-
-## Akun Default (Login)
-
-Gunakan akun berikut untuk masuk ke aplikasi:
-
-**Administrator:**
-- **Email:** `admin@gmail.com`
-- **Password:** `password`
-
-**User (Donatur):**
-- **Email:** `user@gmail.com`
-- **Password:** `password`
+---
+*Dibuat untuk keperluan Tugas/Presentasi - Sistem Donasi © 2026*
