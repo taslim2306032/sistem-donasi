@@ -1,5 +1,7 @@
 # Sistem Donasi Digital (DonasiKu)
-
+**Disusun Oleh :**
+- Taslim Nuralim : 2306032
+- M Anwar Sanusi : 2306016
 **Nama Proyek:** Sistem Donasi Berbasis Web  
 **Framework:** Laravel 11  
 **Frontend:** Blade Templates + Tailwind CSS  
