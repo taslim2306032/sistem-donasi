@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\Auth;
 class DonasiController extends Controller
 {
     // ================= INDEX =================
+    // Menampilkan halaman utama daftar donasi
     public function index()
     {
-        // Admin sees all, User/Public sees only active & verified
+        // Admin melihat semua, User/Publik hanya melihat yang aktif & terverifikasi
         if (Auth::check() && Auth::user()->role === 'admin') {
             $donasi = Donasi::latest()->get();
         } else {
@@ -26,13 +27,15 @@ class DonasiController extends Controller
     }
 
     // ================= CREATE =================
+    // Menampilkan form pembuatan donasi baru
     public function create()
     {
-        // Any authenticated user can create a donation
+        // Setiap user yang login bisa membuat donasi
         return view('donasi.create');
     }
 
     // ================= STORE =================
+    // Menyimpan data donasi baru ke database
     public function store(Request $request)
     {
         $request->validate([
@@ -48,8 +51,8 @@ class DonasiController extends Controller
         $data['donasi_terkumpul'] = 0;
         $data['created_by'] = Auth::id();
 
-        // If Admin -> Active & Verified
-        // If User -> Pending & Unverified
+        // Jika Admin -> Aktif & Terverifikasi
+        // Jika User -> Pending & Belum Terverifikasi
         if (Auth::user()->role === 'admin') {
             $data['status'] = 'active';
             $data['is_verified'] = true;
@@ -72,11 +75,12 @@ class DonasiController extends Controller
     }
 
     // ================= SHOW =================
+    // Menampilkan detail donasi
     public function show($id)
     {
         $donasi = Donasi::findOrFail($id);
         
-        // Prevent users from seeing pending donations via direct link (unless they are admin or owner)
+        // Mencegah user melihat donasi pending via link langsung (kecuali admin atau pemilik)
         if ($donasi->status !== 'active' || !$donasi->is_verified) {
             if (!Auth::check() || (Auth::user()->role !== 'admin' && Auth::id() !== $donasi->created_by)) {
                abort(404);
@@ -87,6 +91,7 @@ class DonasiController extends Controller
     }
 
     // ================= DONASI FORM =================
+    // Menampilkan form untuk melakukan donasi
     public function donasiForm($id)
     {
         $donasi = Donasi::findOrFail($id);
@@ -95,6 +100,7 @@ class DonasiController extends Controller
 
     // ================= SIMPAN DONASI =================
     // ================= SIMPAN DONASI (UPLOAD BUKTI) =================
+    // Menyimpan bukti pembayaran donasi dengan status pending
     public function donasiStore(Request $request, $id)
     {
         $request->validate([
@@ -126,6 +132,7 @@ class DonasiController extends Controller
     }
 
     // ================= RIWAYAT =================
+    // Menampilkan riwayat donasi pengguna
     public function riwayat()
     {
         $riwayat = DonationHistory::where('user_id', Auth::id())
@@ -137,9 +144,10 @@ class DonasiController extends Controller
     }
 
     // ================= EDIT =================
+    // Menampilkan form edit donasi (Admin)
     public function edit($id)
     {
-        // Middleware handled, but good to be safe
+        // Middleware sudah menangani, tapi bagus untuk keamanan tambahan
         if (Auth::user()->role !== 'admin') {
             abort(403);
         }
@@ -149,6 +157,7 @@ class DonasiController extends Controller
     }
 
     // ================= UPDATE =================
+    // Memperbarui data donasi (Admin)
     public function update(Request $request, $id)
     {
         if (Auth::user()->role !== 'admin') {
@@ -179,6 +188,7 @@ class DonasiController extends Controller
     }
 
     // ================= DELETE =================
+    // Menghapus data donasi (Admin)
     public function destroy($id)
     {
         if (Auth::user()->role !== 'admin') {
@@ -190,6 +200,7 @@ class DonasiController extends Controller
     }
 
     // ================= ADMIN: LIST PENDING PAYMENTS =================
+    // Menampilkan daftar donasi yang menunggu verifikasi
     public function pending()
     {
         if (Auth::user()->role !== 'admin') {
@@ -205,6 +216,7 @@ class DonasiController extends Controller
     }
 
     // ================= ADMIN: VERIFY PAYMENT =================
+    // Memverifikasi atau menolak pembayaran donasi
     public function verify(Request $request, $id)
     {
         if (Auth::user()->role !== 'admin') {
@@ -225,7 +237,7 @@ class DonasiController extends Controller
 
             return redirect()->back()->with('success', 'Pembayaran diterima. Dana ditambahkan ke donasi.');
         } elseif ($request->action === 'reject') {
-            // Update status history only
+            // Update status history saja
             $history->status = 'rejected';
             $history->save();
 

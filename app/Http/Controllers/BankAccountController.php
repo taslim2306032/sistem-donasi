@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 class BankAccountController extends Controller
 {
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan resource baru ke penyimpanan.
      */
+    // Menambahkan rekening baru
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -24,8 +25,9 @@ class BankAccountController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus resource dari penyimpanan.
      */
+    // Menghapus data rekening
     public function destroy(BankAccount $bankAccount)
     {
         $bankAccount->delete();

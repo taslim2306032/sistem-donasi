@@ -10,6 +10,7 @@ use App\Models\User;
 
 class DashboardController extends Controller
 {
+    // Menampilkan halaman dashboard (Admin & User)
     public function index()
     {
         $user = Auth::user();
@@ -47,7 +48,7 @@ class DashboardController extends Controller
                             ->take(5)
                             ->get();
             
-            // Rekomendasi Donasi (yg belum tercapai target)
+            // Rekomendasi Donasi (yang belum tercapai target)
             $rekomendasiDonasi = Donasi::where('status', 'active')
                                  ->whereRaw('donasi_terkumpul < target_donasi')
                                  ->inRandomOrder() // Acak biar variatif
@@ -62,6 +63,7 @@ class DashboardController extends Controller
         }
     }
 
+    // Menampilkan daftar user (Admin)
     public function users()
     {
         if (Auth::user()->role !== 'admin') {
