@@ -72,54 +72,17 @@ Berikut adalah alur data dari user melakukan donasi hingga validasi:
     -   **Jika Ditolak**: Admin klik "Reject". Status berubah jadi `rejected`. Uang tidak bertambah.
 4.  **Selesai**: User melihat status terbaru di dashboard mereka.
 
----
-
-## 5. Struktur Kode & Folder Penting
-
-Untuk memudahkan navigasi saat presentasi, berikut lokasi file-file utama:
-
--   **Controllers** (`app/Http/Controllers/`):
-    -   `DonasiController.php`: Logika inti donasi (CRUD, Upload, Verifikasi).
-    -   `DashboardController.php`: Logika tampilan dashboard admin/user.
--   **Models** (`app/Models/`):
-    -   `Donasi.php`: Representasi data kampanye.
-    -   `DonationHistory.php`: Representasi data transaksi user.
--   **Views** (`resources/views/`):
-    -   `donasi/`: Folder tampilan terkait donasi (index, create, show).
-    -   `admin/`: Folder tampilan khusus admin (pending payments, users).
--   **Routes** (`routes/web.php`): Definisi jalur URL aplikasi.
 
 ---
 
-## 6. Cara Instalasi & Menjalankan
-
-Ikuti langkah ini jika ingin menjalankan di komputer lain:
-
-1.  **Clone & Install**:
-    ```bash
-    git clone https://github.com/taslim2306032/sistem-donasi.git
-    cd sistem-donasi
-    composer install
-    npm install
-    ```
-2.  **Setup Database**:
-    -   Buat database baru di MySQL.
-    -   Copy `.env.example` ke `.env` dan atur koneksi DB.
-    -   Jalankan: `php artisan migrate:fresh --seed`
-3.  **Jalankan Server**:
-    -   Backend: `php artisan serve`
-    -   Frontend: `npm run dev`
-
----
-
-## 7. Akun Demo
+## 5. Akun Demo
 
 Gunakan akun ini untuk pengujian/presentasi:
 
 | Role | Email | Password |
 | :--- | :--- | :--- |
 | **Administrator** | `admin@gmail.com` | `password` |
-| **User (Donatur)** | `user@gmail.com` | `password` |
+| **User (Donatur)** | `user@gmail.com` | `12345678` |
 
 ---
 *Dibuat untuk keperluan Tugas/Presentasi - Sistem Donasi © 2026*
