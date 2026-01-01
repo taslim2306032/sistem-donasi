@@ -85,4 +85,5 @@ Gunakan akun ini untuk pengujian/presentasi:
 | **User (Donatur)** | `user@gmail.com` | `12345678` |
 
 ---
-*Dibuat untuk keperluan Tugas/Presentasi - Sistem Donasi © 2026*
+## Link vercel
+*https://sistem-donasi.vercel.app/*
